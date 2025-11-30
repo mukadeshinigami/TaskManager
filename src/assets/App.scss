@@ -1,22 +1,24 @@
 // Variables - Jira-like colors
 $colors: (
-  primary: #0052CC,
-  secondary: #6554C0,
-  success: #00875A,
-  warning: #FF991F,
-  error: #DE350B,
-  text-primary: #172B4D,
-  text-secondary: #42526E,
-  text-tertiary: #6B778C,
-  background-primary: #F4F5F7,
-  background-secondary: #FFFFFF,
-  border: #DFE1E6,
-  hover: #EBECF0
+  primary: #0052cc,
+  secondary: #6554c0,
+  success: #00875a,
+  warning: #ff991f,
+  error: #de350b,
+  text-primary: #172b4d,
+  text-secondary: #42526e,
+  text-tertiary: #6b778c,
+  background-primary: #f4f5f7,
+  background-secondary: #ffffff,
+  border: #dfe1e6,
+  hover: #ebecf0,
 );
 
 // Mixins
 @mixin card-shadow {
-  box-shadow: 0px 1px 1px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31);
+  box-shadow:
+    0px 1px 1px rgba(9, 30, 66, 0.25),
+    0px 0px 1px rgba(9, 30, 66, 0.31);
 }
 
 @mixin smooth-transition {
@@ -44,7 +46,7 @@ $colors: (
   }
 
   // Input and button styles
-  input[type="text"] {
+  input[type='text'] {
     width: 100%;
     max-width: 400px;
     padding: 8px 12px;
@@ -124,7 +126,9 @@ $colors: (
   @include smooth-transition;
 
   &:hover {
-    box-shadow: 0px 8px 16px rgba(9, 30, 66, 0.15), 0px 0px 1px rgba(9, 30, 66, 0.31);
+    box-shadow:
+      0px 8px 16px rgba(9, 30, 66, 0.15),
+      0px 0px 1px rgba(9, 30, 66, 0.31);
   }
 }
 
@@ -230,7 +234,7 @@ $colors: (
   // Empty state
   &:empty {
     &::before {
-      content: "No tasks yet";
+      content: 'No tasks yet';
       color: map-get($colors, text-tertiary);
       font-size: 14px;
       text-align: center;
@@ -246,7 +250,7 @@ $colors: (
   &.todo {
     .area-header {
       border-bottom-color: map-get($colors, primary);
-      
+
       h3 {
         color: map-get($colors, primary);
       }
@@ -257,7 +261,7 @@ $colors: (
   &.progress {
     .area-header {
       border-bottom-color: map-get($colors, secondary);
-      
+
       h3 {
         color: map-get($colors, secondary);
       }
@@ -268,7 +272,7 @@ $colors: (
   &.review {
     .area-header {
       border-bottom-color: map-get($colors, warning);
-      
+
       h3 {
         color: map-get($colors, warning);
       }
@@ -279,7 +283,7 @@ $colors: (
   &.done {
     .area-header {
       border-bottom-color: map-get($colors, success);
-      
+
       h3 {
         color: map-get($colors, success);
       }
@@ -323,7 +327,7 @@ $colors: (
     grid-template-columns: 1fr;
   }
 
-  input[type="text"] {
+  input[type='text'] {
     margin-bottom: 12px;
   }
 
@@ -336,12 +340,12 @@ $colors: (
 // Dark mode support (optional)
 @media (prefers-color-scheme: dark) {
   .App {
-    background: #1B263B;
-    color: #E6EDF3;
+    background: #1b263b;
+    color: #e6edf3;
   }
 
   .status-area {
-    background: #222F45;
-    color: #E6EDF3;
+    background: #222f45;
+    color: #e6edf3;
   }
 }
