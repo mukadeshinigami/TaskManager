@@ -1,42 +1,344 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* Variables - Jira-like colors */
+:root {
+  --primary: #2c65bb;
+  --secondary: #f0bb0d;
+  --success: #2b8b17;
+  --warning: #3aa5b8;
+  --error: #DE350B;
+  --text-primary: #172B4D;
+  --text-secondary: #42526E;
+  --text-tertiary: #6B778C;
+  --background-primary: #F4F5F7;
+  --background-secondary: #FFFFFF;
+  --border: #DFE1E6;
+  --hover: #EBECF0;
+}
+
+/* Base styles */
+.App {
+  min-height: 100vh;
+  background-color: var(--background-primary);
+  padding: 24px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  color: var(--text-primary);
+}
+
+.App h1 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: var(--text-primary);
+}
+
+/* Input and button styles */
+.App input[type="text"] {
+  width: 100%;
+  max-width: 400px;
+  padding: 8px 12px;
+  border: 2px solid var(--border);
+  border-radius: 3px;
+  font-size: 14px;
+  background: var(--background-secondary);
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.App input[type="text"]:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-color: var(--primary);
+}
+
+.App input[type="text"]:hover {
+  background-color: var(--hover);
+}
+
+.App input[type="text"]::placeholder {
+  color: var(--text-tertiary);
+}
+
+.App button:not(.add-btn) {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.App button:not(.add-btn):hover {
+  background: #0042a3;
+}
+
+.App button:not(.add-btn):active {
+  transform: scale(0.98);
+}
+
+.App button:not(.add-btn):focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Task List Container */
+.container.task-list {
+  margin-top: 32px;
+}
+
+.container.task-list h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+}
+
+/* Task Status Areas */
+.task-status-areas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 колонки одинаковой ширины */
+  gap: 16px;
+  align-items: start;
+  overflow-x: auto; /* На случай если не помещается по ширине */
+}
+
+/* Status Area Base */
+.status-area {
+  background: var(--background-secondary);
+  border-radius: 8px;
+  padding: 16px;
+  min-height: 400px;
+  box-shadow: 0px 1px 1px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31);
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.status-area:hover {
+  box-shadow: 0px 8px 16px rgba(9, 30, 66, 0.15), 0px 0px 1px rgba(9, 30, 66, 0.31);
+}
+
+/* Area Header */
+.area-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid;
+}
+
+.area-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.area-header .task-count {
+  background: var(--background-primary);
+  color: var(--text-secondary);
+  border-radius: 16px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  min-width: 24px;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Add Button Styles */
+.add-btn {
+  width: 100%;
+  padding: 8px 12px;
+  border: 2px dashed var(--border);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+  margin-bottom: 16px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.add-btn:hover {
+  background: var(--hover);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.add-btn:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Button variants */
+.add-btn.primary {
+  border-color: rgba(0, 82, 204, 0.3);
+  color: var(--primary);
+}
+
+.add-btn.primary:hover {
+  background: rgba(0, 82, 204, 0.08);
+}
+
+.add-btn.secondary {
+  border-color: rgba(251, 255, 0, 0.3);
+  color: var(--secondary);
+}
+
+.add-btn.secondary:hover {
+  background: rgba(101, 84, 192, 0.08);
+}
+
+.add-btn.warning {
+  border-color: rgba(0, 255, 221, 0.3);
+  color: var(--warning);
+}
+
+.add-btn.warning:hover {
+  background: rgba(255, 153, 31, 0.08);
+}
+
+.add-btn.success {
+  border-color: rgba(9, 255, 0, 0.3);
+  color: var(--success);
+}
+
+.add-btn.success:hover {
+  background: rgba(0, 135, 90, 0.08);
+}
+
+/* Tasks List */
+.tasks-list {
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Empty state */
+.tasks-list:empty::before {
+  content: "No tasks yet";
+  color: var(--text-tertiary);
+  font-size: 14px;
+  text-align: center;
+  padding: 20px;
+  font-style: italic;
+}
+
+/* Specific status area styles */
+
+/* To Do */
+.status-area.todo .area-header {
+  border-bottom-color: var(--primary);
+}
+
+.status-area.todo .area-header h3 {
+  color: var(--primary);
+}
+
+/* In Progress */
+.status-area.progress .area-header {
+  border-bottom-color: var(--secondary);
+}
+
+.status-area.progress .area-header h3 {
+  color: var(--secondary);
+}
+
+/* Review */
+.status-area.review .area-header {
+  border-bottom-color: var(--warning);
+}
+
+.status-area.review .area-header h3 {
+  color: var(--warning);
+}
+
+/* Done */
+.status-area.done .area-header {
+  border-bottom-color: var(--success);
+}
+
+.status-area.done .area-header h3 {
+  color: var(--success);
+}
+
+/* Task Item Styles */
+.task-item {
+  background: var(--background-secondary);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 12px;
+  font-size: 14px;
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+  cursor: pointer;
+}
+
+.task-item:hover {
+  background: var(--hover);
+  border-color: var(--primary);
+}
+
+.task-item:active {
+  transform: translateY(1px);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .task-status-areas {
+    grid-template-columns: repeat(2, 1fr);
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@media (max-width: 768px) {
+  .App {
+    padding: 16px;
+  }
+
+  .task-status-areas {
+    grid-template-columns: 1fr;
+  }
+
+  .App input[type="text"] {
+    margin-bottom: 12px;
+  }
+
+  .App button:not(.add-btn) {
+    margin-left: 0;
+    width: 100%;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+/* Dark mode support (optional) */
+@media (prefers-color-scheme: dark) {
+  .App {
+    background: #1B263B;
+    color: #E6EDF3;
+  }
+
+  .status-area {
+    background: #222F45;
+    color: #E6EDF3;
   }
 }
 
-.card {
-  padding: 2em;
+/* Additional utility for task input container */
+.task-input-container {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 
-.read-the-docs {
-  color: #888;
+@media (max-width: 768px) {
+  .task-input-container {
+    flex-direction: column;
+  }
+  
+  .task-input-container input[type="text"] {
+    max-width: 100%;
+  }
 }

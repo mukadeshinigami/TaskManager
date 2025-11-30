@@ -1,34 +1,70 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React from 'react'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+    return (
+        <div className="App">
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+            <h1>Welcome to Task Manager</h1>
+
+            <input type="text" placeholder="Enter your task here" />
+
+            <button>Add Task</button>
+
+            <div className='container task-list'>
+                <h2>Your Tasks</h2>
+
+                <div className='task-status-areas'>
+        {/* To Do */}
+        <div className='status-area todo'> 
+            <div className='area-header'>
+                <h3>📝 To Do</h3>
+                <span className='task-count'>0</span>
+            </div>
+            <button className='add-btn primary'>
+                + New Task
+            </button>
+            <div className='tasks-list' id='todo-tasks'></div>
+        </div>
+
+        {/* In Progress */}
+        <div className='status-area progress'>
+            <div className='area-header'>
+                <h3>⚡ In Progress</h3>
+                <span className='task-count'>0</span>
+            </div>
+            <button className='add-btn secondary'>
+                + New Task
+            </button>
+            <div className='tasks-list' id='progress-tasks'></div>
+        </div>
+
+        {/* Review */}
+        <div className='status-area review'>
+            <div className='area-header'>
+                <h3>👀 Review</h3>
+                <span className='task-count'>0</span>
+            </div>
+            <button className='add-btn warning'>
+                + New Task
+            </button>
+            <div className='tasks-list' id='review-tasks'></div>
+        </div>
+
+        {/* Done */}
+        <div className='status-area done'>
+            <div className='area-header'>
+                <h3>✅ Done</h3>
+                <span className='task-count'>0</span>
+            </div>
+            <button className='add-btn success'>
+                + New Task
+            </button>
+            <div className='tasks-list' id='done-tasks'></div>
+        </div>
+    </div>
+            </div>
+        </div>
   )
 }
 
