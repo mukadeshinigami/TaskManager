@@ -11,15 +11,15 @@ interface Task {
 
 export const tasks: Task[] = [
   {
-    id: 'task-1',
-    title: 'Sample Task',
-    description: 'This is a sample task description.',
+    id: String('task-1'),
+    title: String('Sample Task'),
+    description: String('This is a sample task description.'),
     status: 'todo',
   },
   {
-    id: 'task-2',
-    title: 'Another Task',
-    description: 'This is another task description.',
+    id: String('task-2'),
+    title: String('Another Task'),
+    description: String('This is another task description.'),
     status: 'todo',
   },
 ];

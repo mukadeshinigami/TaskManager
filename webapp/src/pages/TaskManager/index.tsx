@@ -14,7 +14,7 @@ if (isError) {
     return <div>Error: {error.message}</div>;
 }
 
-
+const x: string = 1;
 
   return (
     console.log(result),
