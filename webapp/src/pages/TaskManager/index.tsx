@@ -1,20 +1,23 @@
-            const tasks = [
-              {
-                id: 'task-1',
-                title: 'Sample Task',
-                description: 'This is a sample task description.',
-                status: 'todo', // Possible values: 'todo', 'progress', 'review', 'done'
-              },
-              {
-                id: 'task-2',
-                title: 'Another Task',
-                description: 'This is another task description.',
-                status: 'todo', // Possible values: 'todo', 'progress', 'review', 'done'
-              },
-            ]
+import { trpc } from '../../lib/trpc'
+
             
 export function TaskManager() {
+
+const result = trpc.tasks.useQuery();
+
+const { data, error, isLoading, isFetching, isError } = trpc.tasks.useQuery();
+
+if (isLoading || isFetching) {
+    return <div>Loading...</div>;
+}
+if (isError) {
+    return <div>Error: {error.message}</div>;
+}
+
+
+
   return (
+    console.log(result),
     <div className="App">
       <h1>Welcome to Task Manager</h1>
 
@@ -34,7 +37,7 @@ export function TaskManager() {
             </div>
             <button className="add-btn primary">+ New Task</button>
             <div className="tasks-list" id="todo-tasks">
-              {tasks.map((task) => {
+              {data?.tasks.map((task) => {
                 return (
                   <div key={task.id} className="task-card">
                     <h4>{task.title}</h4>

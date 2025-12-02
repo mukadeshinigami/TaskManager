@@ -3,7 +3,7 @@ import type { TrpcRouter } from '@taskmanager/backend/src/trpc';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 
-const trpc = createTRPCReact<TrpcRouter>();
+export const trpc = createTRPCReact<TrpcRouter>();
 
 const queryClient = new QueryClient(
     {
