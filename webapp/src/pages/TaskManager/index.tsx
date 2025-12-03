@@ -13,7 +13,6 @@ export function TaskManager() {
   }
 
   return (
-    console.log(result),
     (
       <div className="App">
         <h1>Welcome to Task Manager</h1>
