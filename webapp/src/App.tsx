@@ -7,5 +7,5 @@ export default function App() {
     <TrpcProvider>
       <TaskManager />
     </TrpcProvider>
-  );
+  )
 }

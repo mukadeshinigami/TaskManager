@@ -1,0 +1,20 @@
+{
+    "name": "TaskManager",
+    "private": true,
+    "version": "0.0.0",
+    "scripts": {
+        "b": "pnpm --filter @taskmanager/backend ",
+        "w": "pnpm --filter @taskmanager/webapp ",
+        "dev": "pnpm -r --parallel dev",
+        "type": "concurrently \"pnpm b type\" \"pnpm w type\"",
+        "prettyfy": "pnpm -r --parallel prettyfy"
+    },
+    "devDependencies": {
+        "concurrently": "^9.2.1",
+        "prettier": "^3.7.3",
+        "rimraf": "^6.1.2",
+        "ts-node": "^10.9.2",
+        "ts-node-dev": "^2.0.0",
+        "typescript": "^5.9.3"
+    }
+}

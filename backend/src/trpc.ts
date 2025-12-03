@@ -1,12 +1,12 @@
-import { initTRPC } from "@trpc/server";
+import { initTRPC } from '@trpc/server'
 
-type TaskStatus = 'todo' | 'progress' | 'review' | 'done';
+type TaskStatus = 'todo' | 'progress' | 'review' | 'done'
 
 interface Task {
-  id: string;
-  title: string;
-  description: string;
-  status: TaskStatus;
+  id: string
+  title: string
+  description: string
+  status: TaskStatus
 }
 
 export const tasks: Task[] = [
@@ -22,18 +22,17 @@ export const tasks: Task[] = [
     description: String('This is another task description.'),
     status: 'todo',
   },
-];
+]
 
-const trpc = initTRPC.create();
+const trpc = initTRPC.create()
 
 export const trpcRouter = trpc.router({
   tasks: trpc.procedure.query(() => {
-        return {tasks};
-    }),
-  hello : trpc.procedure.query(() => {
-    return 'Hello from tRPC backend!';
+    return { tasks }
   }),
+  hello: trpc.procedure.query(() => {
+    return 'Hello from tRPC backend!'
+  }),
+})
 
-});
-
-export type TrpcRouter = typeof trpcRouter;
+export type TrpcRouter = typeof trpcRouter
