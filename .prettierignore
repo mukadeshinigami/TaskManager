@@ -1,0 +1,8 @@
+node_modules/
+dist/
+build/
+.cache/
+.pnpm-store/
+/.turbo/
+coverage/
+**/node_modules/
