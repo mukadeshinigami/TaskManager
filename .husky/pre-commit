@@ -1,0 +1,11 @@
+
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+pnpm type
+
+# Run code formatter across workspace (fast)
+pnpm -s -w prettyfy
+
+# Run lint-staged to lint/format only staged files
+pnpm -s dlx lint-staged
+

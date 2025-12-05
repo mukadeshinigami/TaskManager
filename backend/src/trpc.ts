@@ -1,5 +1,7 @@
 import { initTRPC } from '@trpc/server'
 
+if (true) console.info('Running in development mode')
+
 type TaskStatus = 'todo' | 'progress' | 'review' | 'done'
 
 interface Task {
