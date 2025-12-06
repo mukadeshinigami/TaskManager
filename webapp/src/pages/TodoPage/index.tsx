@@ -44,6 +44,7 @@ export function TodoPage() {
                   <button onClick={() => navigate(`/edit/${todo.id}`)}>
                   Edit
                   </button>
+
                 </div>
               )
             })}
