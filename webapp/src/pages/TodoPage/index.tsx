@@ -1,11 +1,13 @@
 import { trpc } from '../../lib/trpc'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './style.css'
+
 
 export function TodoPage() {
   const { data, error, isLoading, isFetching, isError } = trpc.tasks.useQuery()
   const [selectedTodo, setSelectedTodo] = useState<any>(null)
+  const navigate = useNavigate()
 
   if (isLoading || isFetching) {
     return <div>Loading...</div>
@@ -38,7 +40,10 @@ export function TodoPage() {
                   }}
                 >
                   <h4>{todo.title}</h4>
-                  <p>{todo.description}</p>
+                  <p>{todo.FullText}</p>
+                  <button onClick={() => navigate(`/edit/${todo.id}`)}>
+                  Edit
+                  </button>
                 </div>
               )
             })}
