@@ -1,7 +1,9 @@
 import { trpc } from '../../lib/trpc'
+import { useState } from 'react'
 
 export function TaskManager() {
   const { data, error, isLoading, isFetching, isError } = trpc.tasks.useQuery()
+  const [selectedTask, setSelectedTask] = useState<any>(null)
 
   if (isLoading || isFetching) {
     return <div>Loading...</div>
@@ -32,7 +34,17 @@ export function TaskManager() {
             <div className="tasks-list" id="todo-tasks">
               {data?.tasks.map((task) => {
                 return (
-                  <div key={task.id} className="task-card">
+                  <div
+                    key={task.id}
+                    className="task-card"
+                    style={{ cursor: 'pointer' }}
+
+                    onClick={() => setSelectedTask(task)}
+                    role="button"
+
+                    tabIndex={0}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { setSelectedTask(task) } }}
+                  >
                     <h4>{task.title}</h4>
                     <p>{task.description}</p>
                   </div>
@@ -72,6 +84,22 @@ export function TaskManager() {
           </div>
         </div>
       </div>
+
+      {/* Simple stub modal when a task card is clicked */}
+      {selectedTask && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999 }}>
+          <div style={{ width: 520, maxWidth: '90vw', background: '#fff', color: '#000', borderRadius: 8, overflow: 'auto' }}>
+            <div style={{ padding: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <h3 style={{ margin: 0 }}>{selectedTask.title}</h3>
+              <button onClick={() => setSelectedTask(null)} aria-label="Close" style={{ background: 'transparent', border: 'none', fontSize: 20 }}>×</button>
+            </div>
+            <div style={{ padding: 12 }}>
+              <p>{selectedTask.description}</p>
+              <p><em>This is a placeholder Implement task details here.</em></p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
