@@ -1,9 +1,17 @@
 import { trpc } from '../../lib/trpc'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import './style.css'
 
 export function TaskManager() {
   const { data, error, isLoading, isFetching, isError } = trpc.tasks.useQuery()
   const [selectedTask, setSelectedTask] = useState<any>(null)
+  const [openSection, setOpenSection] = useState<string | null>(null)
+  const navigate = useNavigate()
+
+  function handleHeaderClick(status: string) {
+    setOpenSection((prev) => (prev === status ? null : status))
+  }
 
   if (isLoading || isFetching) {
     return <div>Loading...</div>
@@ -16,10 +24,6 @@ export function TaskManager() {
     <div className="App">
       <h1>Welcome to Task Manager</h1>
 
-      <input type="text" placeholder="Enter your task here" />
-
-      <button>Add Task</button>
-
       <div className="container task-list">
         <h2>Your Tasks</h2>
 
@@ -27,8 +31,13 @@ export function TaskManager() {
           {/* To Do */}
           <div className="status-area todo">
             <div className="area-header">
-              <h3>📝 To Do</h3>
-              <span className="task-count">0</span>
+              <button
+                className="area-header-button"
+                onClick={() => navigate('/todo')}
+              >
+                <h3>📝 To Do</h3>
+                <span className="task-count">{data?.tasks.filter((task) => task.status === 'todo').length}</span>
+                </button>
             </div>
             <button className="add-btn primary">+ New Task</button>
             <div className="tasks-list" id="todo-tasks">
@@ -56,8 +65,14 @@ export function TaskManager() {
           {/* In Progress */}
           <div className="status-area progress">
             <div className="area-header">
-              <h3>⚡ In Progress</h3>
-              <span className="task-count">0</span>
+              <button
+                className="area-header-button"
+                onClick={() => handleHeaderClick('progress')}
+                aria-expanded={openSection === 'progress'}
+              >
+                <h3>⚡ In Progress</h3>
+                <span className="task-count">0</span>
+              </button>
             </div>
             <button className="add-btn secondary">+ New Task</button>
             <div className="tasks-list" id="progress-tasks"></div>
@@ -66,8 +81,14 @@ export function TaskManager() {
           {/* Review */}
           <div className="status-area review">
             <div className="area-header">
-              <h3>👀 Review</h3>
-              <span className="task-count">0</span>
+              <button
+                className="area-header-button"
+                onClick={() => handleHeaderClick('review')}
+                aria-expanded={openSection === 'review'}
+              >
+                <h3>👀 Review</h3>
+                <span className="task-count">0</span>
+              </button>
             </div>
             <button className="add-btn warning">+ New Task</button>
             <div className="tasks-list" id="review-tasks"></div>
@@ -76,8 +97,14 @@ export function TaskManager() {
           {/* Done */}
           <div className="status-area done">
             <div className="area-header">
-              <h3>✅ Done</h3>
-              <span className="task-count">0</span>
+              <button
+                className="area-header-button"
+                onClick={() => handleHeaderClick('done')}
+                aria-expanded={openSection === 'done'}
+              >
+                <h3>✅ Done</h3>
+                <span className="task-count">0</span>
+              </button>
             </div>
             <button className="add-btn success">+ New Task</button>
             <div className="tasks-list" id="done-tasks"></div>
@@ -94,7 +121,7 @@ export function TaskManager() {
               <button onClick={() => setSelectedTask(null)} aria-label="Close" style={{ background: 'transparent', border: 'none', fontSize: 20 }}>×</button>
             </div>
             <div style={{ padding: 12 }}>
-              <p>{selectedTask.description}</p>
+              <p>{selectedTask.FullText}</p>
               <p><em>This is a placeholder Implement task details here.</em></p>
             </div>
           </div>

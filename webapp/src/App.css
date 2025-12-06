@@ -13,8 +13,8 @@
   --border: #dfe1e6;
   --hover: #ebecf0;
 }
-
-/* Base styles */
+/* Base styles are defined in SCSS (`src/assets/App.scss`).
+   Keep component-level styles here only (header/nav etc.). */
 .App {
   min-height: 100vh;
   background-color: var(--background-primary);
@@ -69,21 +69,12 @@
   transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
 }
 
-.App button:not(.add-btn):hover {
-  background: #0042a3;
-}
-
-.App button:not(.add-btn):active {
-  transform: scale(0.98);
-}
-
 .App button:not(.add-btn):focus {
-  outline: 2px solid var(--primary);
+  outline: 0.5px solid var(--primary);
   outline-offset: 2px;
 }
-
 .task-card {
-  background: var(--background-secondary);
+
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px;
@@ -213,7 +204,6 @@
 
 /* Status Area Base */
 .status-area {
-  background: var(--background-secondary);
   border-radius: 8px;
   padding: 16px;
   min-height: 400px;
@@ -378,25 +368,7 @@
   color: var(--success);
 }
 
-/* Task Item Styles */
-.task-item {
-  background: var(--background-secondary);
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  padding: 12px;
-  font-size: 14px;
-  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
-  cursor: pointer;
-}
-
-.task-item:hover {
-  background: var(--hover);
-  border-color: var(--primary);
-}
-
-.task-item:active {
-  transform: translateY(1px);
-}
+/* Task Item styles live in `src/assets/App.scss` (keeps SCSS as source-of-truth). */
 
 /* Responsive Design */
 @media (max-width: 1200px) {
@@ -453,4 +425,42 @@
   .task-input-container input[type='text'] {
     max-width: 100%;
   }
+}
+
+.App-header {
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 8px;
+  background-color: var(--background-secondary);
+}
+
+.App-header nav {
+  background-color: var(--background-secondary);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.App-header nav a {
+  color: var(--text-primary);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.App-header nav a:hover {
+  background: var(--hover);
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.App-header nav a[aria-current="page"] {
+  background: var(--primary);
+  color: white;
 }
