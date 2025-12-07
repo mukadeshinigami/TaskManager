@@ -5,7 +5,13 @@ import { TaskManager } from './pages/TaskManager'
 import { TaskMiniPage } from './pages/TaskMiniPage'
 import { TodoPage } from './pages/TodoPage'
 import { EditingTaskPage } from './pages/EditingTaskPage'
-import { EditingTaskPageRoutes, TaskManagerRoutes, TaskMiniPageRoutes, TodoPageRoutes } from './lib/routes'
+import {
+  EditingTaskPageRoutes,
+  TaskManagerRoutes,
+  TaskMiniPageRoutes,
+  TodoPageRoutes,
+  ViewTaskPageRoutes,
+} from './lib/routes'
 
 export default function App() {
   return (
@@ -20,10 +26,10 @@ export default function App() {
 
         <main>
           <Routes>
-            <Route path={TaskManagerRoutes()} element={<TaskManager />} />S
-            <Route path={TaskMiniPageRoutes(':id')} element={<TaskMiniPage />} />
+            <Route path={TaskManagerRoutes()} element={<TaskManager />} />
+            <Route path={TaskMiniPageRoutes(ViewTaskPageRoutes)} element={<TaskMiniPage />} />
             <Route path={TodoPageRoutes()} element={<TodoPage />} />
-            <Route path={EditingTaskPageRoutes(':id')} element={<EditingTaskPage />} />
+            <Route path={EditingTaskPageRoutes(ViewTaskPageRoutes)} element={<EditingTaskPage />} />
           </Routes>
         </main>
       </BrowserRouter>

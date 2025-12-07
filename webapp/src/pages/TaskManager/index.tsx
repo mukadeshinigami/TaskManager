@@ -1,6 +1,7 @@
 import { trpc } from '../../lib/trpc'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { TodoPageRoutes } from '../../lib/routes'
 import './style.css'
 
 export function TaskManager() {
@@ -31,13 +32,10 @@ export function TaskManager() {
           {/* To Do */}
           <div className="status-area todo">
             <div className="area-header">
-              <button
-                className="area-header-button"
-                onClick={() => navigate('/todo')}
-              >
+              <button className="area-header-button" onClick={() => navigate(TodoPageRoutes())}>
                 <h3>📝 To Do</h3>
                 <span className="task-count">{data?.tasks.filter((task) => task.status === 'todo').length}</span>
-                </button>
+              </button>
             </div>
             <button className="add-btn primary">+ New Task</button>
             <div className="tasks-list" id="todo-tasks">
@@ -47,12 +45,14 @@ export function TaskManager() {
                     key={task.id}
                     className="task-card"
                     style={{ cursor: 'pointer' }}
-
                     onClick={() => setSelectedTask(task)}
                     role="button"
-
                     tabIndex={0}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { setSelectedTask(task) } }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        setSelectedTask(task)
+                      }
+                    }}
                   >
                     <h4>{task.title}</h4>
                     <p>{task.description}</p>
@@ -114,15 +114,42 @@ export function TaskManager() {
 
       {/* Simple stub modal when a task card is clicked */}
       {selectedTask && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999 }}>
-          <div style={{ width: 520, maxWidth: '90vw', background: '#fff', color: '#000', borderRadius: 8, overflow: 'auto' }}>
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(0,0,0,0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 9999,
+          }}
+        >
+          <div
+            style={{
+              width: 520,
+              maxWidth: '90vw',
+              background: '#fff',
+              color: '#000',
+              borderRadius: 8,
+              overflow: 'auto',
+            }}
+          >
             <div style={{ padding: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ margin: 0 }}>{selectedTask.title}</h3>
-              <button onClick={() => setSelectedTask(null)} aria-label="Close" style={{ background: 'transparent', border: 'none', fontSize: 20 }}>×</button>
+              <button
+                onClick={() => setSelectedTask(null)}
+                aria-label="Close"
+                style={{ background: 'transparent', border: 'none', fontSize: 20 }}
+              >
+                ×
+              </button>
             </div>
             <div style={{ padding: 12 }}>
               <p>{selectedTask.FullText}</p>
-              <p><em>This is a placeholder Implement task details here.</em></p>
+              <p>
+                <em>This is a placeholder Implement task details here.</em>
+              </p>
             </div>
           </div>
         </div>

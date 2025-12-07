@@ -1,11 +1,10 @@
 import { trpc } from '../../lib/trpc'
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { EditingTaskPageRoutes } from '../../lib/routes'
 import './style.css'
 
 export function TodoPage() {
   const { data, error, isLoading, isFetching, isError } = trpc.tasks.useQuery()
-  const [setSelectedTodo] = useState<any>(null)
   const navigate = useNavigate()
 
   if (isLoading || isFetching) {
@@ -25,22 +24,11 @@ export function TodoPage() {
             .filter((task) => task.status === 'todo')
             .map((todo) => {
               return (
-                <div
-                  key={todo.id}
-                  className="todo-card"
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => setSelectedTodo(todo)}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      setSelectedTodo(todo)
-                    }
-                  }}
-                >
+                <div key={todo.id} className="todo-card">
                   <h4>{todo.title}</h4>
                   <p>{todo.FullText}</p>
-                  <button onClick={() => navigate(`/edit/${todo.id}`)}>Edit</button>
+
+                  <button onClick={() => navigate(EditingTaskPageRoutes({ id: todo.id }))}>Edit</button>
                 </div>
               )
             })}
