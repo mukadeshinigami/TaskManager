@@ -44,7 +44,7 @@ export default function Modal({ isOpen, onRequestClose, title, children }: Props
         {title ? <h3 style={{ margin: 0 }}>{title}</h3> : null}
         <div className="modal-close-button">
           <button onClick={onRequestClose} aria-label="Close modal">
-            ×
+            Close
           </button>
         </div>
       </div>

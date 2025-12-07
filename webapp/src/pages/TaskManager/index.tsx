@@ -5,8 +5,9 @@ import { TodoPageRoutes } from '../../lib/routes'
 import './style.css'
 
 export function TaskManager() {
-  const { data, error, isLoading, isFetching, isError } = trpc.tasks.useQuery()
-  const [selectedTask, setSelectedTask] = useState<any>(null)
+  const { data, error, isLoading, isFetching, isError } = trpc.fulltxt.useQuery()
+  const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null)
+  const { data: taskDetail } = trpc.get.useQuery(selectedTaskId ?? '', { enabled: !!selectedTaskId })
   const [openSection, setOpenSection] = useState<string | null>(null)
   const navigate = useNavigate()
 
@@ -39,26 +40,28 @@ export function TaskManager() {
             </div>
             <button className="add-btn primary">+ New Task</button>
             <div className="tasks-list" id="todo-tasks">
-              {data?.tasks.map((task) => {
-                return (
-                  <div
-                    key={task.id}
-                    className="task-card"
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => setSelectedTask(task)}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        setSelectedTask(task)
-                      }
-                    }}
-                  >
-                    <h4>{task.title}</h4>
-                    <p>{task.description}</p>
-                  </div>
-                )
-              })}
+              {data?.tasks
+                .filter((task) => task.status === 'todo')
+                .map((task) => {
+                  return (
+                    <div
+                      key={task.id}
+                      className="task-card"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => setSelectedTaskId(task.id)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          setSelectedTaskId(task.id)
+                        }
+                      }}
+                    >
+                      <h4>{task.title}</h4>
+                      <p>{task.description}</p>
+                    </div>
+                  )
+                })}
             </div>
           </div>
 
@@ -112,8 +115,8 @@ export function TaskManager() {
         </div>
       </div>
 
-      {/* Simple stub modal when a task card is clicked */}
-      {selectedTask && (
+      {/* Modal for task details - loads FullText on demand */}
+      {taskDetail && (
         <div
           style={{
             position: 'fixed',
@@ -136,20 +139,24 @@ export function TaskManager() {
             }}
           >
             <div style={{ padding: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <h3 style={{ margin: 0 }}>{selectedTask.title}</h3>
+              <h3 style={{ margin: 0 }}>{taskDetail.title}</h3>
               <button
-                onClick={() => setSelectedTask(null)}
+                onClick={() => setSelectedTaskId(null)}
                 aria-label="Close"
-                style={{ background: 'transparent', border: 'none', fontSize: 20 }}
+                style={{ background: 'transparent', border: 'none', fontSize: 18 }}
               >
-                ×
+                Close
               </button>
             </div>
             <div style={{ padding: 12 }}>
-              <p>{selectedTask.FullText}</p>
               <p>
-                <em>This is a placeholder Implement task details here.</em>
+                <strong>Description:</strong> {taskDetail.description}
               </p>
+              <p>
+                <strong>Status:</strong> {taskDetail.status}
+              </p>
+              <hr />
+              <div style={{ whiteSpace: 'pre-wrap' }}>{taskDetail.FullText}</div>
             </div>
           </div>
         </div>

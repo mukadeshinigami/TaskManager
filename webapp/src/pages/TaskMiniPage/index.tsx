@@ -27,7 +27,8 @@ export function TaskMiniPage({ initialOpen }: Props) {
   useEffect(() => {
     console.info('[TaskMiniPage] isOpen changed ->', isOpen)
   }, [isOpen])
-  const { data, isLoading } = trpc.tasks.useQuery()
+  // use summary endpoint that does not include FullText
+  const { data, isLoading } = trpc.fulltxt.useQuery()
 
   const firstTask = data?.tasks?.[0]
 
@@ -37,16 +38,7 @@ export function TaskMiniPage({ initialOpen }: Props) {
         Open
       </button>
       <Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)} title="Task details">
-        {isLoading ? (
-          <div>Loading...</div>
-        ) : firstTask ? (
-          <div className="task-card">
-            <h4>{firstTask.title}</h4>
-            <p>{firstTask.description}</p>
-          </div>
-        ) : (
-          <div>No tasks</div>
-        )}
+        {isLoading ? <div>Loading...</div> : firstTask ? <div className="task-card"></div> : <div>No tasks</div>}
       </Modal>
     </div>
   )

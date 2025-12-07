@@ -4,7 +4,7 @@ import { EditingTaskPageRoutes } from '../../lib/routes'
 import './style.css'
 
 export function TodoPage() {
-  const { data, error, isLoading, isFetching, isError } = trpc.tasks.useQuery()
+  const { data, error, isLoading, isFetching, isError } = trpc.fulltxt.useQuery()
   const navigate = useNavigate()
 
   if (isLoading || isFetching) {
@@ -26,7 +26,7 @@ export function TodoPage() {
               return (
                 <div key={todo.id} className="todo-card">
                   <h4>{todo.title}</h4>
-                  <p>{todo.FullText}</p>
+                  <p>{todo.description}</p>
 
                   <button onClick={() => navigate(EditingTaskPageRoutes({ id: todo.id }))}>Edit</button>
                 </div>
