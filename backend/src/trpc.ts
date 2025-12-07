@@ -15,19 +15,18 @@ type Task = {
   title: string
   description: string
   FullText: string
+
   status: TaskStatus
 }
 
-const tasks: Task[] =_.times(10, (num) => (
-  {
-    id: `task-${num + 1}`,
-    title: `Task ${num + 1}`,
-    description: `This is the short description for task ${num + 1}.`,
-    FullText: _.times(5, (i) => `This is line ${i + 1} of the full text for task ${num + 1}.`).join(''),
+const tasks: Task[] = _.times(10, (num) => ({
+  id: `task-${num + 1}`,
+  title: `Task ${num + 1}`,
+  description: `This is the short description for task ${num + 1}.`,
+  FullText: _.times(5, (i) => `This is line ${i + 1} of the full text for task ${num + 1}.`).join(''),
 
-    status: 'todo',
-  }
-))
+  status: 'todo',
+}))
 
 const trpc = initTRPC.create()
 

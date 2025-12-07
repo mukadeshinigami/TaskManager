@@ -1,25 +1,10 @@
-/* TodoPage styles — simple, consistent with App theme */
-:root {
-  --tp-bg: var(--background-primary);
-  --tp-card: var(--background-secondary);
-  --tp-border: var(--border);
-  --tp-accent: var(--primary);
-  --tp-muted: var(--text-tertiary);
-}
-
-
-
-.todo-list {
-  display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
 
 .todo-card {
-  background: var(--tp-card);
-  border: 1px solid var(--tp-border);
+  background: #1c2331;;
+  border: 1px solid rgba(0, 68, 255, 0.384);
   border-radius: 8px;
   padding: 12px;
+  margin: 8px 0;
   box-shadow: 0 1px 3px rgba(9,30,66,0.06);
   transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
   display: flex;
@@ -29,8 +14,9 @@
 
 .todo-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(13,0,255,0.08);
-  border-color: var(--tp-accent);
+  box-shadow: 0 8px 10px rgba(13, 0, 255, 0.185);
+  border: 2px solid rgba(0, 68, 255, 0.753);
+
 }
 
 .todo-card .title {
@@ -38,14 +24,6 @@
   color: var(--text-primary);
   margin: 0;
   font-size: 14px;
-}
-
-.todo-card .meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: var(--tp-muted);
-  font-size: 12px;
 }
 
 .empty-state {
@@ -65,6 +43,7 @@
     align-items: stretch;
   }
 }
+
 
 /* small utility */
 .muted { color: var(--tp-muted); }

@@ -19,7 +19,3 @@
     margin-left: auto;
 }
 
-.area-header-button:hover,
-.area-header > button:hover {
-  background: rgba(0, 0, 0, 0.2) !important;
-}

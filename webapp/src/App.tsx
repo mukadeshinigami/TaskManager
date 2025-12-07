@@ -5,6 +5,7 @@ import { TaskManager } from './pages/TaskManager'
 import { TaskMiniPage } from './pages/TaskMiniPage'
 import { TodoPage } from './pages/TodoPage'
 import { EditingTaskPage } from './pages/EditingTaskPage'
+import { Layout } from './components/Layout'
 import {
   EditingTaskPageRoutes,
   TaskManagerRoutes,
@@ -17,19 +18,14 @@ export default function App() {
   return (
     <TrpcProvider>
       <BrowserRouter>
-        <header className="App-header">
-          <nav>
-            <Link to={TaskManagerRoutes()}>Home</Link>
-            <Link to={TodoPageRoutes()}>To-Do</Link>
-          </nav>
-        </header>
-
         <main>
           <Routes>
-            <Route path={TaskManagerRoutes()} element={<TaskManager />} />
-            <Route path={TaskMiniPageRoutes(ViewTaskPageRoutes)} element={<TaskMiniPage />} />
-            <Route path={TodoPageRoutes()} element={<TodoPage />} />
-            <Route path={EditingTaskPageRoutes(ViewTaskPageRoutes)} element={<EditingTaskPage />} />
+            <Route path="/" element={<Layout />}>
+              <Route path={TaskManagerRoutes()} element={<TaskManager />} />
+              <Route path={TaskMiniPageRoutes(ViewTaskPageRoutes)} element={<TaskMiniPage />} />
+              <Route path={TodoPageRoutes()} element={<TodoPage />} />
+              <Route path={EditingTaskPageRoutes(ViewTaskPageRoutes)} element={<EditingTaskPage />} />
+            </Route>
           </Routes>
         </main>
       </BrowserRouter>
