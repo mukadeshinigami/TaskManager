@@ -74,7 +74,7 @@ body {
 	box-shadow: 0 -4px 3px rgba(0,0,0,0.1);
 	z-index: 999;
 }
-.nav-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px }
+.nav-list{ list-style:none; margin:10px; padding:10px; display:flex; flex-direction:column; gap:16px }
 .nav-item{ padding:8px 10px; border-radius:6px; cursor:pointer; color:var(--muted) }
-.nav-item.active{ background:linear-gradient(90deg,var(--accent), var(--accent-600, var(--accent))); color:white }
+.nav-item.active{ background:linear-gradient(90deg,background-color var(--accent-500), var(--accent-600)); color:#fff; font-weight:600; box-shadow:0 4px 6px rgba(0, 0, 0, 0.76) }
 
