@@ -33,6 +33,7 @@ export function TaskMiniPage({ initialOpen }: Props) {
   const firstTask = data?.tasks?.[0]
 
   return (
+    
     <div>
       <button className="add-btn primary" onClick={() => setIsOpen(true)}>
         Open

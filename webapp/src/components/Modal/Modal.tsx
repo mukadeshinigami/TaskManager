@@ -21,6 +21,7 @@ export default function Modal({ isOpen, onRequestClose, title, children }: Props
   }, [])
 
   return (
+    
     <ReactModal
       isOpen={isOpen}
       onRequestClose={() => {

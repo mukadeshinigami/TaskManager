@@ -1,0 +1,48 @@
+@import '../../../style/vars';
+
+.segment {
+  background: $card;
+  border-radius: $radius;
+  box-shadow: 0 2px 8px rgb(15, 23, 42, 0.06);
+  padding: 2.5rem 2rem;
+  margin: 0 auto $gap auto;
+  max-width: $max-width;
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}
+
+.title {
+  font-family: $font-family;
+  font-size: 2rem;
+  font-weight: 700;
+  color: $primary;
+  margin: 0 0 0.5em 0;
+  line-height: 1.2;
+}
+
+.description {
+  color: $text-secondary;
+  font-size: 1.1rem;
+  margin: 0 0 1.2em 0;
+}
+
+.content {
+  font-size: 1rem;
+  color: $text-primary;
+  line-height: $line-height-base;
+}
+
+@media (width <= 600px) {
+  .segment {
+    padding: 1.2rem 0.7rem;
+  }
+
+  .title {
+    font-size: 1.3rem;
+  }
+
+  .description {
+    font-size: 1rem;
+  }
+}
