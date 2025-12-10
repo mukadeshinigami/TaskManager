@@ -6,7 +6,7 @@ import { Segment } from '../../components/Segment'
 import './style.css'
 
 export function TaskManager() {
-  const { data, error, isLoading, isFetching, isError } = trpc.fulltxt.useQuery()
+  const { data, error, isLoading, isFetching, isError } = trpc.txt.useQuery()
   const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null)
   const { data: taskDetail } = trpc.get.useQuery(selectedTaskId ?? '', { enabled: !!selectedTaskId })
   const [openSection, setOpenSection] = useState<string | null>(null)

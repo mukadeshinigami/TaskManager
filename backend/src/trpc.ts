@@ -31,9 +31,8 @@ const tasks: Task[] = _.times(10, (num) => ({
 const trpc = initTRPC.create()
 
 export const trpcRouter = trpc.router({
-  // fulltxt: summary for lists (no FullText)
-  fulltxt: trpc.procedure.query(() => {
-    return { tasks: tasks.map((task) => _.pick(task, ['id', 'title', 'description', 'status'])) }
+  txt: trpc.procedure.query(() => {
+    return { tasks: tasks.map((task) => _.pick(task, ['id', 'title', 'description', 'status', 'FullText'])) }
   }),
 
   // get: detailed task by id (includes FullText). Validate input with zod.

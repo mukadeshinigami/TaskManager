@@ -1,0 +1,38 @@
+@import '../../../../webapp/style/vars';
+
+.button {
+  padding: 10px 20px;
+  background-color: #131d35;
+  color: white;
+}
+
+.button:hover {
+  background-color: rgba(0, 60, 255, 0.63);
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #283957;
+  border-radius: 8px;
+}
+
+.App h2 {
+  text-align: center;
+  color: white;
+  margin: 10px;
+}
+
+.description {
+  border-radius: 8px;
+  padding: 100px 20px;
+  background-color: #131d3560;
+  color: white;
+}
+
+.todoItems {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

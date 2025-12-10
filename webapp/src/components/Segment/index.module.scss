@@ -1,13 +1,24 @@
 @import '../../../../webapp/style/vars';
 
 .segment {
-  background: $card;
+  background-color: #1b263b;
   border-radius: $radius;
-  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.548);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.548);
   padding: 1rem 1rem;
-  margin: 0 auto $gap auto;
-  max-width: $max-width;
-  display: flex;
-  flex-direction: column;
-  gap: $gap;
+  margin: 1 auto $gap auto;
+  text-align: center;
+}
+
+.title {
+  text-align: center;
+  border-bottom: 2px solid rgba(39, 41, 68, 0.352);
+}
+
+.description {
+  text-align: center;
+  margin-top: 4px;
+}
+
+.content {
+  text-align: left;
 }

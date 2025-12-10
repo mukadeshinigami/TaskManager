@@ -1,10 +1,12 @@
 import { trpc } from '../../lib/trpc'
 import { useNavigate } from 'react-router-dom'
 import { EditingTaskPageRoutes } from '../../lib/routes'
-import './style.css'
+import { Segment } from '../../components/Segment'
+import css from './index.module.scss'
+
 
 export function TodoPage() {
-  const { data, error, isLoading, isFetching, isError } = trpc.fulltxt.useQuery()
+  const { data, error, isLoading, isFetching, isError } = trpc.txt.useQuery()
   const navigate = useNavigate()
 
   if (isLoading || isFetching) {
@@ -15,23 +17,21 @@ export function TodoPage() {
   }
 
   return (
-    <div className="App">
+    <div className={css.App}>
       <div className="container todo-list">
         <h2>To-Do List</h2>
-
-        <div className="todo-items">
+        <div className={css.todoItems}>
           {data?.tasks
             .filter((task) => task.status === 'todo')
-            .map((todo) => {
-              return (
-                <div key={todo.id} className="todo-card">
-                  <h4>{todo.title}</h4>
-                  <p>{todo.description}</p>
-
-                  <button onClick={() => navigate(EditingTaskPageRoutes({ id: todo.id }))}>Edit</button>
-                </div>
-              )
-            })}
+            .map((todo) => (
+              <Segment 
+                title={todo.title}
+                description={todo.description}
+                key={todo.id}>
+                <p className={css.description}>{todo.FullText}</p>
+                <button className={css.button} onClick={() => navigate(EditingTaskPageRoutes({ id: todo.id }))}>Edit</button>
+              </Segment>
+            ))}
         </div>
       </div>
     </div>

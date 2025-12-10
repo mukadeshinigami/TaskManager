@@ -28,7 +28,7 @@ export function TaskMiniPage({ initialOpen }: Props) {
     console.info('[TaskMiniPage] isOpen changed ->', isOpen)
   }, [isOpen])
   // use summary endpoint that does not include FullText
-  const { data, isLoading } = trpc.fulltxt.useQuery()
+  const { data, isLoading } = trpc.txt.useQuery()
 
   const firstTask = data?.tasks?.[0]
 
