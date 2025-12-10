@@ -2,6 +2,7 @@ import { trpc } from '../../lib/trpc'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TodoPageRoutes } from '../../lib/routes'
+import { Segment } from '../../components/Segment'
 import './style.css'
 
 export function TaskManager() {
@@ -57,8 +58,12 @@ export function TaskManager() {
                         }
                       }}
                     >
-                      <h4>{task.title}</h4>
-                      <p>{task.description}</p>
+                      <Segment
+                      size={2}
+                        title={task.title}
+                        description={task.description}
+
+                      />
                     </div>
                   )
                 })}

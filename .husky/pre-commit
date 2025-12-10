@@ -2,4 +2,5 @@
 . "$(dirname "$0")/_/husky.sh"
 # Run lint-staged to lint/format only staged files (fast)
 pnpm -s dlx lint-staged
-
+pnpm w stylecheck
+pnpm type

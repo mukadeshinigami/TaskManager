@@ -1,0 +1,13 @@
+@import '../../../../webapp/style/vars';
+
+.segment {
+  background: $card;
+  border-radius: $radius;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.548);
+  padding: 1rem 1rem;
+  margin: 0 auto $gap auto;
+  max-width: $max-width;
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}

@@ -1,6 +1,6 @@
 // === Базовые переменные для SCSS ===
 $bg: #f6f8fb;
-$card: #ffffff;
+$card: #00000013;
 $muted: #6b7280;
 $accent: #2563eb;
 $success: #16a34a;
@@ -23,13 +23,13 @@ $hover: rgba(0, 0, 0, 0.03);
 
 // === Типографика и базовые размеры ===
 $font-family:
-  Inter,
+  inter,
   ui-sans-serif,
   system-ui,
   -apple-system,
   'Segoe UI',
-  Roboto,
+  roboto,
   'Helvetica Neue',
-  Arial;
+  arial;
 $font-size-base: 16px;
 $line-height-base: 1.5;

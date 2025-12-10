@@ -10,6 +10,7 @@
     "stylelint": "stylelint --cache --cache-location ./node_modules/.cache/.stylelintcache 'src/**/*.scss'",
     "preview": "vite preview",
     "type": "tsc -b --noEmit",
+    "stylecheck": "sass --update -q ./src:./node_modules/.cache/.stylecheckcache",
     "prettyfy": "prettier --log-level warn --cache --write 'src/**/*.{js,jsx,ts,tsx,json,css,scss,md}'"
   },
   "dependencies": {
