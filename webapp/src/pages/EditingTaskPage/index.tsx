@@ -1,8 +1,15 @@
 import { useParams } from 'react-router-dom'
 import { trpc } from '../../lib/trpc'
 import './style.css'
+import { useState } from 'react'
 
 export const EditingTaskPage = () => {
+  const [state, setState] = useState({
+    title: '',
+    description: '',
+    FullText: '',
+  })
+
   const { id } = useParams() as { id?: string }
 
   // Load full task details (includes FullText) on demand
@@ -24,10 +31,26 @@ export const EditingTaskPage = () => {
       <div>
         <h2>Task Details</h2>
         <p>
-          <strong>Title:</strong> {task.title}
+          <strong>Title: {state.title}</strong> {task.title}
+          <br />
+          <input
+            placeholder="Edit title (not wired)"
+            type="text"
+            value={state.title}
+            onChange={(e) => setState({ ...state, title: e.target.value })}
+          />
+          <button style={{ marginLeft: 8 }}>Save</button>
         </p>
         <p>
           <strong>Description:</strong> {task.description}
+          <br />
+          <input
+            placeholder="Edit description (not wired)"
+            type="text"
+            value={state.description}
+            onChange={(e) => setState({ ...state, description: e.target.value })}
+          />
+          <button style={{ marginLeft: 8 }}>Save</button>
         </p>
         <p>
           <strong>Status:</strong> {task.status}
@@ -39,8 +62,17 @@ export const EditingTaskPage = () => {
         </div>
 
         <div style={{ marginTop: 12 }}>
-          <input placeholder="Edit title (not wired)" />
-          <button style={{ marginLeft: 8 }}>Save</button>
+          <form>
+            <textarea
+              placeholder="Edit full text (not wired)"
+              style={{ display: 'block', marginTop: 8, width: '100%' }}
+              onChange={(e) => setState({ ...state, FullText: e.target.value })}
+              value={state.FullText}
+              name="text"
+              id="text"
+            />
+            <button style={{ marginLeft: 8 }}>Save</button>
+          </form>
         </div>
       </div>
     </div>
