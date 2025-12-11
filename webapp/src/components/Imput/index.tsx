@@ -1,31 +1,22 @@
-import { useState} from 'react'
+import {type FormikProps } from 'formik'
+
 
 type InputProps = {
   field: 'title' | 'description' | 'FullText'
   label?: string
-  state: {
-    title: string
-    description: string
-    FullText: string
-  }
-  setState: React.Dispatch<
-    React.SetStateAction<{
-      title: string
-      description: string
-      FullText: string
-    }>
-  >
+  formik: FormikProps<any>
   input: 'input' | 'textarea'
   placeholder?: string
   bonus?: React.ReactNode
 }
 
-export const Input = ({ input = 'input', field, label, bonus, state, setState, placeholder }: InputProps) => {
-  const [inputValue, setInputValue] = useState(state[field])
+export const Input = ({ input = 'input', field, label, bonus, formik, placeholder }: InputProps) => {
+ // const [inputValue, setInputValue] = useState(state[field])
 
   const handleSave = () => {
-    setState({ ...state, [field]: inputValue })
+    formik.handleSubmit()
   }
+
 
   return (
     <div>
@@ -44,14 +35,18 @@ export const Input = ({ input = 'input', field, label, bonus, state, setState, p
         <input
           placeholder={placeholder || `Edit ${field}`}
           type="text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          value={formik.values[field]}
+          onChange={(e) => formik.setFieldValue(field, e.target.value)}
+          onBlur={formik.handleBlur}
+          name={field}
         />
       ) : (
         <textarea
           placeholder={placeholder || `Edit ${field}`}
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          value={formik.values[field]}
+          onChange={(e) => formik.setFieldValue(field, e.target.value)}
+          onBlur={formik.handleBlur}
+          name={field}
         />
       )}
 

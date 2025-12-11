@@ -1,15 +1,34 @@
 import { useParams } from 'react-router-dom'
 import { trpc } from '../../lib/trpc'
 import './style.css'
-import { useState } from 'react'
 import { Input } from '../../components/Imput'
+import { useFormik } from 'formik'
+
 
 export const EditingTaskPage = () => {
-  const [state, setState] = useState({
-    title: '',
-    description: '',
-    FullText: '',
+
+  type EditingTaskState = {
+    title: string
+    description: string
+    FullText: string
+  }
+
+  const formik = useFormik<EditingTaskState>({
+    initialValues: {
+      title: '',
+      description: '',
+      FullText: '',
+    },
+    onSubmit: (values) => {
+      console.info('Form submitted with values:', values)
+      // Here you can add the logic to update the task in your backend
+    },
   })
+  //const [state, setState] = useState<EditingTaskState>({
+  //  title: '',
+  //  description: '',
+  //  FullText: '',
+  //})
 
   const { id } = useParams() as { id?: string }
 
@@ -29,40 +48,46 @@ export const EditingTaskPage = () => {
   return (
     <div>
       <title>{`Editing Task Page: ${id}`}</title>
-      <div>
+
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        formik.handleSubmit();
+        }}>
+
         <h2>{task.title} Details</h2>
         <Input 
           input='input'
           field="title"
           label={task.title}
           placeholder="Edit title"
-          state={state}
-          setState={setState}
+          formik={formik}
         /> 
+
         <Input
           input='input'
           field="description"
           label={task.description}
           bonus='Description: '
           placeholder="Edit description"
-          state={state}
-          setState={setState}
+          formik={formik}        
         />
+
         <p>
           <strong>Status:</strong> {task.status}
         </p>
+
         <hr />
+
         <Input
           input='textarea'
           field="FullText"
           label={task.FullText}
           bonus="Full Text: "
           placeholder="Edit full text"
-          state={state}
-          setState={setState}
+          formik={formik}      
         />
 
-      </div>
+      </form>
     </div>
   )
 }
