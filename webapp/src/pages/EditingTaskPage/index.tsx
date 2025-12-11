@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom'
 import { trpc } from '../../lib/trpc'
 import './style.css'
 import { useState } from 'react'
+import { Input } from '../../components/Imput'
 
 export const EditingTaskPage = () => {
   const [state, setState] = useState({
@@ -29,51 +30,38 @@ export const EditingTaskPage = () => {
     <div>
       <title>{`Editing Task Page: ${id}`}</title>
       <div>
-        <h2>Task Details</h2>
-        <p>
-          <strong>Title: {state.title}</strong> {task.title}
-          <br />
-          <input
-            placeholder="Edit title (not wired)"
-            type="text"
-            value={state.title}
-            onChange={(e) => setState({ ...state, title: e.target.value })}
-          />
-          <button style={{ marginLeft: 8 }}>Save</button>
-        </p>
-        <p>
-          <strong>Description:</strong> {task.description}
-          <br />
-          <input
-            placeholder="Edit description (not wired)"
-            type="text"
-            value={state.description}
-            onChange={(e) => setState({ ...state, description: e.target.value })}
-          />
-          <button style={{ marginLeft: 8 }}>Save</button>
-        </p>
+        <h2>{task.title} Details</h2>
+        <Input 
+          input='input'
+          field="title"
+          label={task.title}
+          placeholder="Edit title"
+          state={state}
+          setState={setState}
+        /> 
+        <Input
+          input='input'
+          field="description"
+          label={task.description}
+          bonus='Description: '
+          placeholder="Edit description"
+          state={state}
+          setState={setState}
+        />
         <p>
           <strong>Status:</strong> {task.status}
         </p>
         <hr />
-        <div>
-          <strong>Full text:</strong>
-          <div style={{ whiteSpace: 'pre-wrap', marginTop: 8 }}>{task.FullText}</div>
-        </div>
+        <Input
+          input='textarea'
+          field="FullText"
+          label={task.FullText}
+          bonus="Full Text: "
+          placeholder="Edit full text"
+          state={state}
+          setState={setState}
+        />
 
-        <div style={{ marginTop: 12 }}>
-          <form>
-            <textarea
-              placeholder="Edit full text (not wired)"
-              style={{ display: 'block', marginTop: 8, width: '100%' }}
-              onChange={(e) => setState({ ...state, FullText: e.target.value })}
-              value={state.FullText}
-              name="text"
-              id="text"
-            />
-            <button style={{ marginLeft: 8 }}>Save</button>
-          </form>
-        </div>
       </div>
     </div>
   )
