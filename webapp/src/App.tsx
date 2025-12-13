@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import './App.css'
+import './App.scss'
 import { TrpcProvider } from './lib/trpc'
 import { TaskManager } from './pages/TaskManager'
 import { TaskMiniPage } from './pages/TaskMiniPage'

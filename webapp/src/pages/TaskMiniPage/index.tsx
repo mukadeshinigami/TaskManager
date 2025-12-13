@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import Modal from '../../components/Modal/Modal'
-import { trpc } from '../../lib/trpc'
+import { trpc } from '../../lib/trpcClient'
 
 type Props = {
   initialOpen?: boolean

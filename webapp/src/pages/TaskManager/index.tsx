@@ -1,9 +1,9 @@
-import { trpc } from '../../lib/trpc'
+import { trpc } from '../../lib/trpcClient'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TodoPageRoutes } from '../../lib/routes'
 import { Segment } from '../../components/Segment'
-import './style.css'
+import './style.scss'
 
 export function TaskManager() {
   const { data, error, isLoading, isFetching, isError } = trpc.txt.useQuery()
@@ -24,6 +24,7 @@ export function TaskManager() {
   }
 
   return (
+    
     <div className="App">
       <h1>Welcome to Task Manager</h1>
 

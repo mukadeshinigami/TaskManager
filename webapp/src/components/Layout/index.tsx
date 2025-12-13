@@ -1,30 +1,30 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { TaskManagerRoutes, TodoPageRoutes } from '../../lib/routes'
-import './style.css'
+import css from './index.module.scss'
 
 export const Layout = () => {
   const location = useLocation()
   // Fix footer for the editing page (routes like /edit/:id)
   const isFooterFixed = location.pathname.startsWith('/edit/')
   return (
-    <div className="layout">
-      <header className="layout-header">
-        <div className="logo">Task Manager</div>
-        <div className="actions">
-          <NavLink to={TodoPageRoutes()} className="primary">
+    <div className={css.layout}>
+      <header className={css['layout-header']}>
+        <div className={css.logo}>Task Manager</div>
+        <div className={css.actions}>
+          <NavLink to={TodoPageRoutes()} className={css.primary}>
             + New
           </NavLink>
         </div>
       </header>
 
-      <main className="layout-main">
-        <aside className="layout-sidebar">
-          <nav>
-            <ul className="nav-list">
+      <main className={css['layout-main']}>
+        <aside className={css['layout-sidebar']}>
+          <nav className={css.nav}>
+            <ul className={css['nav-list']}>
               <li>
                 <NavLink
                   to={TaskManagerRoutes()}
-                  className={({ isActive }) => (isActive ? 'nav-item active' : 'nav-item')}
+                  className={({ isActive }) => (isActive ? css['nav-item-active'] : css['nav-item'])}
                 >
                   Home
                 </NavLink>
@@ -32,7 +32,7 @@ export const Layout = () => {
               <li>
                 <NavLink
                   to={TodoPageRoutes()}
-                  className={({ isActive }) => (isActive ? 'nav-item active' : 'nav-item')}
+                  className={({ isActive }) => (isActive ? css['nav-item-active'] : css['nav-item'])}
                 >
                   To-Do
                 </NavLink>
@@ -41,12 +41,12 @@ export const Layout = () => {
           </nav>
         </aside>
 
-        <section className="layout-content">
+        <section className={css['layout-content']}>
           <Outlet />
         </section>
       </main>
 
-      <footer className={`layout-footer ${isFooterFixed ? 'fixed' : ''}`}>
+      <footer className={`${css['layout-footer']} ${isFooterFixed ? css.fixed : ''}`}>
         © {new Date().getFullYear()} Task Manager
       </footer>
     </div>

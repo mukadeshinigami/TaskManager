@@ -1,4 +1,4 @@
-import { trpc } from '../../lib/trpc'
+import { trpc } from '../../lib/trpcClient'
 import { useNavigate } from 'react-router-dom'
 import { EditingTaskPageRoutes } from '../../lib/routes'
 import { Segment } from '../../components/Segment'

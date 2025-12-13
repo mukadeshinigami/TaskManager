@@ -1,38 +1,8 @@
-@import 'reset-css/sass/_reset.scss';
-@import 'vars.scss';
-// === Базовые переменные и сброс ===
-:root {
-  --bg: #f6f8fb;
-  --card: #ffffff;
-  --muted: #6b7280;
-  --accent: #2563eb;
-  --success: #16a34a;
-  --warning: #f59e0b;
-  --danger: #ef4444;
-  --glass: rgba(255, 255, 255, 0.6);
-  --radius: 8px;
-  --gap: 12px;
-  --max-width: 1100px;
-  --primary: var(--accent, #2c65bb);
-  --secondary: var(--warning, #f0bb0d);
-  --error: var(--danger, #de350b);
-  --text-primary: #172b4d;
-  --text-secondary: var(--muted, #42526e);
-  --text-tertiary: #6b778c;
-  --background-primary: var(--bg, #f4f5f7);
-  --background-secondary: var(--card, #ffffff);
-  --border: rgba(15, 23, 42, 0.06);
-  --hover: rgba(0, 0, 0, 0.03);
-}
-
-// === Box-sizing и типографика ===
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+@import 'reset-css/sass/reset';
+@import 'vars';
 
 body {
+  margin: 0;
   font-family:
     Inter,
     ui-sans-serif,
@@ -42,13 +12,17 @@ body {
     Roboto,
     'Helvetica Neue',
     Arial;
-  font-size: 16px;
-  line-height: 1.5;
-  color: var(--text-primary);
-  background: linear-gradient(180deg, var(--bg), #fff);
-  min-height: 100vh;
+  color: #0f172a;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  background: transparent;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
 }
 
 h1,
@@ -62,16 +36,8 @@ h6 {
   color: var(--text-primary);
 }
 
-p {
-  margin: 0 0 1em 0;
-}
+// ...удалён первый дубликат .App...
 
-// === Ссылки ===
-a {
-  color: var(--accent);
-  text-decoration: none;
-  transition: color 0.15s;
-}
 a:hover {
   color: var(--success);
   text-decoration: underline;
@@ -89,9 +55,11 @@ button {
   cursor: pointer;
   transition: background 0.15s;
 }
+
 button:hover {
   background: var(--success);
 }
+
 button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
@@ -111,6 +79,7 @@ select {
   margin-bottom: 8px;
   transition: border-color 0.15s;
 }
+
 input:focus,
 textarea:focus,
 select:focus {
@@ -119,10 +88,11 @@ select:focus {
 }
 
 // === Адаптивность ===
-@media (max-width: 600px) {
+@media (width <= 600px) {
   body {
     font-size: 15px;
   }
+
   .container {
     padding: 0 8px;
   }
@@ -161,42 +131,13 @@ body,
 #root {
   height: 100%;
 }
-body {
-  margin: 0;
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial;
-  background: linear-gradient(180deg, var(--bg), #fff);
-  color: #0f172a;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  min-height: 100vh;
-}
 
-// === Утилиты ===
-.sr-only {
-  position: absolute;
-  left: -9999px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-
-// === Базовые контейнеры ===
 .App {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 24px;
   min-height: 100vh;
-  background-color: var(--background-primary);
   color: var(--text-primary);
 }
 
@@ -204,50 +145,6 @@ body {
   width: 100%;
   max-width: var(--max-width);
   background: transparent;
-}
-
-:root {
-  --bg: #f6f8fb;
-  --card: #ffffff;
-  --muted: #6b7280;
-  --accent: #2563eb;
-  --success: #16a34a;
-  --warning: #f59e0b;
-  --danger: #ef4444;
-  --glass: rgba(255, 255, 255, 0.6);
-  --radius: 8px;
-  --gap: 12px;
-  --max-width: 1100px;
-}
-
-/* Base layout */
-html,
-body,
-#root {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial;
-  background: linear-gradient(180deg, var(--bg), #fff);
-  color: #0f172a;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.App {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 24px;
 }
 
 .task-card {
@@ -263,6 +160,7 @@ body {
 .task-card h4 {
   margin: 0 0 6px 0;
 }
+
 .task-card p {
   margin: 0;
   color: var(--muted);

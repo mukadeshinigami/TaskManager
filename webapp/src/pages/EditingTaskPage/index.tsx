@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom'
-import { trpc } from '../../lib/trpc'
+import { trpc } from '../../lib/trpcClient'
 import './style.css'
 import { Input } from '../../components/Imput'
 import { useFormik } from 'formik'
@@ -12,11 +12,18 @@ export const EditingTaskPage = () => {
     FullText: string
   }
 
-  // Схема валидации (вернули обратно)
+  // Схема валидации 
   const validationSchema = Yup.object({
-    title: Yup.string().required('Title is required'),
-    description: Yup.string().required('Description is required'),
-    FullText: Yup.string().required('Full text is required'),
+    title: Yup.string()
+    .required('Title is required')
+    .max(20, 'Title must be at most 20 characters')
+    .matches(/^[a-z0-9-]+$/, 'Nick may contain only lowercase letters, numbers and dashes'),
+    description: Yup.string()
+    .required('Description is required')
+    .max(50, 'Description must be at most 50 characters'),
+    FullText: Yup.string()
+      .required('Full text is required')
+      .max(200, 'Full text must be at most 200 characters')
   })
 
   const formik = useFormik<EditingTaskState>({
@@ -25,7 +32,7 @@ export const EditingTaskPage = () => {
       description: '',
       FullText: '',
     },
-    validationSchema,
+    validationSchema: validationSchema,
     onSubmit: (values) => {
       console.info('Form submitted with values:', values)
       // Here you can add the logic to update the task in your backend
