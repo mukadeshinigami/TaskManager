@@ -10,9 +10,10 @@ type InputProps = {
 }
 
 export const Input = ({ input = 'input', field, label, bonus, formik, placeholder }: InputProps) => {
-  // const [inputValue, setInputValue] = useState(state[field])
-
+  const error = formik.touched[field] && typeof formik.errors[field] === 'string' ? (formik.errors[field] as string) : undefined;
   const handleSave = () => {
+    formik.setFieldTouched(field, true, true)
+    formik.validateField(field)
     formik.handleSubmit()
   }
 
@@ -36,6 +37,7 @@ export const Input = ({ input = 'input', field, label, bonus, formik, placeholde
           onChange={(e) => formik.setFieldValue(field, e.target.value)}
           onBlur={formik.handleBlur}
           name={field}
+          style={error ? { borderColor: 'red' } : {}}
         />
       ) : (
         <textarea
@@ -44,9 +46,12 @@ export const Input = ({ input = 'input', field, label, bonus, formik, placeholde
           onChange={(e) => formik.setFieldValue(field, e.target.value)}
           onBlur={formik.handleBlur}
           name={field}
+          style={error ? { borderColor: 'red' } : {}}
         />
       )}
-      {!formik.isValid && <div style={{ color: 'red' }}>Some fields are invalid</div>}
+      {error && (
+        <div style={{ color: 'red' }}>{error}</div>
+      )}
       <button style={{ marginLeft: 8 }} onClick={handleSave} type="button">
         Save
       </button>

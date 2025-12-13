@@ -3,6 +3,7 @@ import { trpc } from '../../lib/trpc'
 import './style.css'
 import { Input } from '../../components/Imput'
 import { useFormik } from 'formik'
+import * as Yup from 'yup'
 
 export const EditingTaskPage = () => {
   type EditingTaskState = {
@@ -11,22 +12,25 @@ export const EditingTaskPage = () => {
     FullText: string
   }
 
+  // Схема валидации (вернули обратно)
+  const validationSchema = Yup.object({
+    title: Yup.string().required('Title is required'),
+    description: Yup.string().required('Description is required'),
+    FullText: Yup.string().required('Full text is required'),
+  })
+
   const formik = useFormik<EditingTaskState>({
     initialValues: {
       title: '',
       description: '',
       FullText: '',
     },
+    validationSchema,
     onSubmit: (values) => {
       console.info('Form submitted with values:', values)
       // Here you can add the logic to update the task in your backend
     },
   })
-  //const [state, setState] = useState<EditingTaskState>({
-  //  title: '',
-  //  description: '',
-  //  FullText: '',
-  //})
 
   const { id } = useParams() as { id?: string }
 
@@ -53,6 +57,7 @@ export const EditingTaskPage = () => {
           formik.handleSubmit()
         }}
       >
+
         <h2>{task.title} Details</h2>
         <div style={{ backgroundColor: '#1b263b', padding: '8px', borderRadius: '4px', marginBottom: '8px' }}>
           <Input input="input" field="title" label={task.title} placeholder="Edit title" formik={formik} />
