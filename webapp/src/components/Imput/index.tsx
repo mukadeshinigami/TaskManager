@@ -1,5 +1,4 @@
-import {type FormikProps } from 'formik'
-
+import { type FormikProps } from 'formik'
 
 type InputProps = {
   field: 'title' | 'description' | 'FullText'
@@ -11,22 +10,20 @@ type InputProps = {
 }
 
 export const Input = ({ input = 'input', field, label, bonus, formik, placeholder }: InputProps) => {
- // const [inputValue, setInputValue] = useState(state[field])
+  // const [inputValue, setInputValue] = useState(state[field])
 
   const handleSave = () => {
     formik.handleSubmit()
   }
 
-
   return (
     <div>
-      {bonus}
-      <br />
+      {bonus && <div>{bonus}</div>}
       {label && (
         <label>
           <strong>
             {label}
-            {}
+            <br />
           </strong>
         </label>
       )}
@@ -49,8 +46,8 @@ export const Input = ({ input = 'input', field, label, bonus, formik, placeholde
           name={field}
         />
       )}
-
-      <button style={{ marginLeft: 8 }} onClick={handleSave}>
+      {!formik.isValid && <div style={{ color: 'red' }}>Some fields are invalid</div>}
+      <button style={{ marginLeft: 8 }} onClick={handleSave} type="button">
         Save
       </button>
     </div>

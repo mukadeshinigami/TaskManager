@@ -4,9 +4,7 @@ import './style.css'
 import { Input } from '../../components/Imput'
 import { useFormik } from 'formik'
 
-
 export const EditingTaskPage = () => {
-
   type EditingTaskState = {
     title: string
     description: string
@@ -49,44 +47,42 @@ export const EditingTaskPage = () => {
     <div>
       <title>{`Editing Task Page: ${id}`}</title>
 
-      <form onSubmit={(e) => {
-        e.preventDefault();
-        formik.handleSubmit();
-        }}>
-
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          formik.handleSubmit()
+        }}
+      >
         <h2>{task.title} Details</h2>
-        <Input 
-          input='input'
-          field="title"
-          label={task.title}
-          placeholder="Edit title"
-          formik={formik}
-        /> 
+        <div style={{ backgroundColor: '#1b263b', padding: '8px', borderRadius: '4px', marginBottom: '8px' }}>
+          <Input input="input" field="title" label={task.title} placeholder="Edit title" formik={formik} />
+        </div>
 
-        <Input
-          input='input'
-          field="description"
-          label={task.description}
-          bonus='Description: '
-          placeholder="Edit description"
-          formik={formik}        
-        />
+        <div style={{ backgroundColor: '#1b263b', padding: '8px', borderRadius: '4px', marginBottom: '8px' }}>
+          <Input
+            input="input"
+            field="description"
+            label={task.description}
+            bonus="Description: "
+            placeholder="Edit description"
+            formik={formik}
+          />
+        </div>
 
-        <p>
+        <p style={{ backgroundColor: '#1b263b', padding: '8px', borderRadius: '4px', marginBottom: '8px' }}>
           <strong>Status:</strong> {task.status}
         </p>
 
-        <hr />
-
-        <Input
-          input='textarea'
-          field="FullText"
-          label={task.FullText}
-          bonus="Full Text: "
-          placeholder="Edit full text"
-          formik={formik}      
-        />
-
+        <div style={{ backgroundColor: '#1b263b', padding: '8px', borderRadius: '4px', marginBottom: '8px' }}>
+          <Input
+            input="textarea"
+            field="FullText"
+            label={task.FullText}
+            bonus="Full Text: "
+            placeholder="Edit full text"
+            formik={formik}
+          />
+        </div>
       </form>
     </div>
   )
