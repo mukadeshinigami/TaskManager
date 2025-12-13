@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --ext .ts,.tsx .",
+    "lint": "NODE_OPTIONS=\"--max-old-space-size=4096\" eslint --cache --cache-location ./node_modules/.cache/.eslintcache --ext .ts,.tsx .",
     "stylelint": "stylelint --cache --cache-location ./node_modules/.cache/.stylelintcache 'src/**/*.scss'",
     "preview": "vite preview",
     "type": "tsc -b --noEmit",
