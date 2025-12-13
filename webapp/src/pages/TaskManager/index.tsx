@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TodoPageRoutes } from '../../lib/routes'
 import { Segment } from '../../components/Segment'
-import './style.scss'
+import css from './index.module.scss'
 
 export function TaskManager() {
   const { data, error, isLoading, isFetching, isError } = trpc.txt.useQuery()
@@ -35,7 +35,7 @@ export function TaskManager() {
           {/* To Do */}
           <div className="status-area todo">
             <div className="area-header">
-              <button className="area-header-button" onClick={() => navigate(TodoPageRoutes())}>
+              <button className={css.areaHeaderButton} onClick={() => navigate(TodoPageRoutes())}>
                 <h3>📝 To Do</h3>
                 <span className="task-count">{data?.tasks.filter((task) => task.status === 'todo').length}</span>
               </button>
@@ -75,7 +75,7 @@ export function TaskManager() {
           <div className="status-area progress">
             <div className="area-header">
               <button
-                className="area-header-button"
+                className={css.areaHeaderButton}
                 onClick={() => handleHeaderClick('progress')}
                 aria-expanded={openSection === 'progress'}
               >
@@ -91,7 +91,7 @@ export function TaskManager() {
           <div className="status-area review">
             <div className="area-header">
               <button
-                className="area-header-button"
+                className={css.areaHeaderButton}
                 onClick={() => handleHeaderClick('review')}
                 aria-expanded={openSection === 'review'}
               >
@@ -107,7 +107,7 @@ export function TaskManager() {
           <div className="status-area done">
             <div className="area-header">
               <button
-                className="area-header-button"
+                className={css.areaHeaderButton}
                 onClick={() => handleHeaderClick('done')}
                 aria-expanded={openSection === 'done'}
               >
@@ -123,46 +123,25 @@ export function TaskManager() {
 
       {/* Modal for task details - loads FullText on demand */}
       {taskDetail && (
-        <div
-          style={{
-            position: 'fixed',
-            inset: 0,
-            background: 'rgba(0,0,0,0.5)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 9999,
-          }}
-        >
-          <div
-            style={{
-              width: 520,
-              maxWidth: '90vw',
-              background: '#fff',
-              color: '#000',
-              borderRadius: 8,
-              overflow: 'auto',
-            }}
-          >
-            <div style={{ padding: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <h3 style={{ margin: 0 }}>{taskDetail.title}</h3>
+        <div className={css.modalOverlay}>
+          <div className={css.modalContent}>
+            <div className={css.modalHeader}>
+              <h3>{taskDetail.title}</h3>
               <button
                 onClick={() => setSelectedTaskId(null)}
                 aria-label="Close"
-                style={{ background: 'transparent', border: 'none', fontSize: 18 }}
+                className={css.closeButton}
               >
-                Close
+                ✕
               </button>
             </div>
-            <div style={{ padding: 12 }}>
+            <div className={css.modalBody}>
               <p>
                 <strong>Description:</strong> {taskDetail.description}
               </p>
-              <p>
-                <strong>Status:</strong> {taskDetail.status}
-              </p>
-              <hr />
-              <div style={{ whiteSpace: 'pre-wrap' }}>{taskDetail.FullText}</div>
+
+
+              <div className={css.fullText}><p><strong>Full text:</strong> {taskDetail.FullText}</p></div>
             </div>
           </div>
         </div>

@@ -41,8 +41,6 @@
 }
 
 .App input[type='text']:focus {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
   border-color: var(--primary);
 }
 
@@ -65,11 +63,6 @@
   margin-left: 8px;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
-}
-
-.App button:not(.add-btn):focus {
-  outline: 0.5px solid var(--primary);
-  outline-offset: 2px;
 }
 
 .task-card {
@@ -102,8 +95,6 @@
 }
 
 .task-card:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 3px;
   border-color: var(--primary);
 }
 
@@ -379,33 +370,7 @@
   color: var(--success);
 }
 
-/* Task Item styles live in `src/assets/App.scss` (keeps SCSS as source-of-truth). */
 
-/* Responsive Design */
-@media (width <= 1200px) {
-  .task-status-areas {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (width <= 768px) {
-  .App {
-    padding: 16px;
-  }
-
-  .task-status-areas {
-    grid-template-columns: 1fr;
-  }
-
-  .App input[type='text'] {
-    margin-bottom: 12px;
-  }
-
-  .App button:not(.add-btn) {
-    margin-left: 0;
-    width: 100%;
-  }
-}
 
 /* Dark mode support (optional) */
 @media (prefers-color-scheme: dark) {

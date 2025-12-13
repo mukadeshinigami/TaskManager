@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { trpc } from '../../lib/trpcClient'
-import './style.css'
+import './style.scss'
 import { Input } from '../../components/Imput'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
