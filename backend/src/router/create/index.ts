@@ -9,6 +9,7 @@
 import { z } from 'zod'
 import { trpc } from '../../lib/trpc'
 import type { TaskService } from '../../services/taskService'
+import { TRPCError } from '@trpc/server'
 
 export const createCreateRoute = (taskService: TaskService) =>
   trpc.procedure
@@ -21,11 +22,18 @@ export const createCreateRoute = (taskService: TaskService) =>
       })
     )
     .mutation(async ({ input }) => {
-      const created = await taskService.createTask({
-        title: input.title,
-        description: input.description ?? '',
-        FullText: input.FullText ?? '',
-        status: input.status,
-      })
-      return created
+      try {
+        const created = await taskService.createTask({
+          title: input.title,
+          description: input.description ?? '',
+          FullText: input.FullText ?? '',
+          status: input.status,
+        })
+        return created
+      } catch (err: any) {
+        if (err && (err.code === 'DUPLICATE_TITLE' || /title already exists/i.test(String(err.message || '')))) {
+          throw new TRPCError({ code: 'CONFLICT', message: 'Task title already exists' })
+        }
+        throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: String(err?.message ?? 'Unknown error') })
+      }
     })

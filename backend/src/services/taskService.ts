@@ -31,6 +31,15 @@ export const createTaskService = (repository: ITaskRepository) => ({
     if (!repository.create) {
       throw new Error('Repository does not support create operation')
     }
+    // Prevent duplicate titles (case-insensitive)
+    const all = await repository.findAll()
+    const exists = all.some((t) => String(t.title).trim().toLowerCase() === String(data.title).trim().toLowerCase())
+    if (exists) {
+      const err: any = new Error('Task title already exists')
+      err.code = 'DUPLICATE_TITLE'
+      throw err
+    }
+
     return repository.create(data)
   },
 
