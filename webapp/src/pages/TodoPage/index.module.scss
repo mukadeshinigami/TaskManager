@@ -1,15 +1,5 @@
 @import '../../../../webapp/style/vars';
 
-.button {
-  padding: 10px 20px;
-  background-color: #131d35;
-  color: white;
-}
-
-.button:hover {
-  background-color: rgba(0, 60, 255, 0.63);
-}
-
 .App {
   display: flex;
   flex-direction: column;

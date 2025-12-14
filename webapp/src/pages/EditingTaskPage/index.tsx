@@ -4,8 +4,11 @@ import './style.scss'
 import { Input } from '../../components/Imput'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import { useState } from 'react'
 
 export const EditingTaskPage = () => {
+const [successMessageVisible, setSuccessMessageVisible] = useState(false)
+
   const createTask = trpc.update.useMutation({
     onSuccess: () => {
       // Optionally, you can handle success here (e.g., show a success message)
@@ -46,6 +49,8 @@ export const EditingTaskPage = () => {
       console.info('Task created:', values)
       // Reset form after submission
       formik.resetForm()
+      setSuccessMessageVisible(true)
+      setTimeout(() => setSuccessMessageVisible(false), 2000)
     },
   })
 
@@ -74,13 +79,15 @@ export const EditingTaskPage = () => {
           formik.handleSubmit()
         }}
       >
-        <h2>{task.title} Details</h2>
+        <h2 style={{ textAlign: 'center', marginBottom: '8px' }}>{task.title} Details</h2>
+
+        {successMessageVisible && <p style={{ color: 'green', textAlign: 'center', backgroundColor: '#d4edda', borderRadius: '4px', padding: '4px', margin: '4px 0' }}>Task updated successfully!</p>}
+
         <div style={{ backgroundColor: '#1b263b', padding: '8px', borderRadius: '4px', marginBottom: '8px' }}>
           <Input input="input" field="title" label={task.title} placeholder="Edit title" formik={formik} />
         </div>
-
-        <div style={{ backgroundColor: '#1b263b', padding: '8px', borderRadius: '4px', marginBottom: '8px' }}>
-          <Input
+          <div style={{ backgroundColor: '#1b263b', padding: '8px', borderRadius: '4px', marginBottom: '8px' }}>
+            <Input
             input="input"
             field="description"
             label={task.description}
@@ -97,12 +104,14 @@ export const EditingTaskPage = () => {
         <div style={{ backgroundColor: '#1b263b', padding: '8px', borderRadius: '4px', marginBottom: '8px' }}>
           <Input
             input="textarea"
+            bottom='on'
             field="FullText"
             label={task.FullText}
             bonus="Full Text: "
             placeholder="Edit full text"
             formik={formik}
           />
+
         </div>
       </form>
     </div>
