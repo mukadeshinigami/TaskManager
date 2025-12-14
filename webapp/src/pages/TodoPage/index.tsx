@@ -4,7 +4,6 @@ import { EditingTaskPageRoutes } from '../../lib/routes'
 import { Segment } from '../../components/Segment'
 import css from './index.module.scss'
 
-
 export function TodoPage() {
   const { data, error, isLoading, isFetching, isError } = trpc.txt.useQuery()
   const navigate = useNavigate()
@@ -24,12 +23,11 @@ export function TodoPage() {
           {data?.tasks
             .filter((task) => task.status === 'todo')
             .map((todo) => (
-              <Segment 
-                title={todo.title}
-                description={todo.description}
-                key={todo.id}>
+              <Segment title={todo.title} description={todo.description} key={todo.id}>
                 <p className={css.description}>{todo.FullText}</p>
-                <button className={css.button} onClick={() => navigate(EditingTaskPageRoutes({ id: todo.id }))}>Edit</button>
+                <button className={css.button} onClick={() => navigate(EditingTaskPageRoutes({ id: todo.id }))}>
+                  Edit
+                </button>
               </Segment>
             ))}
         </div>

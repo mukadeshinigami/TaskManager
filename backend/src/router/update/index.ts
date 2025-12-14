@@ -9,6 +9,7 @@
 import { z } from 'zod'
 import { trpc } from '../../lib/trpc'
 import type { TaskService } from '../../services/taskService'
+import type { Task } from '../../types/Task/index'
 
 const updateDataSchema = z
   .object({
@@ -21,6 +22,23 @@ const updateDataSchema = z
 
 export const createUpdateRoute = (taskService: TaskService) =>
   trpc.procedure.input(z.object({ id: z.string(), data: updateDataSchema })).mutation(async ({ input }) => {
-    const updated = await taskService.updateTask(input.id, input.data)
+    // sanitize incoming data: convert explicit nulls to undefined so they match Partial<Task>
+    const raw = input.data as Record<string, unknown>
+    const sanitized: Partial<Task> = {}
+
+    if ('title' in raw) {
+      sanitized.title = (raw.title as string) ?? undefined
+    }
+    if ('description' in raw) {
+      sanitized.description = raw.description === null ? undefined : (raw.description as string | undefined)
+    }
+    if ('FullText' in raw) {
+      sanitized.FullText = raw.FullText === null ? undefined : (raw.FullText as string | undefined)
+    }
+    if ('status' in raw) {
+      sanitized.status = raw.status as Task['status'] | undefined
+    }
+
+    const updated = await taskService.updateTask(input.id, sanitized)
     return updated
   })

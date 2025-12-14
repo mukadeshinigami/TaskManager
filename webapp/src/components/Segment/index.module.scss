@@ -7,6 +7,7 @@
   padding: 1rem 1rem;
   margin: 1 auto $gap auto;
   text-align: center;
+  overflow: hidden;
 }
 
 .title {
@@ -15,10 +16,24 @@
 }
 
 .description {
-  text-align: center;
-  margin-top: 4px;
+  margin-top: 8px;
+  color: var(--muted);
 }
 
 .content {
   text-align: left;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  overflow: auto;
+}
+
+.button {
+  margin-top: 12px;
+  padding: 8px 16px;
+  background-color: #3c5fff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
