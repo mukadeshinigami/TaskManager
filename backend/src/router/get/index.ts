@@ -16,13 +16,20 @@
 import { z } from 'zod'
 
 import { trpc } from '../../lib/trpc'
-import { getTaskById } from '../../services/taskService'
+import type { TaskService } from '../../services/taskService'
 
-export const getTrpcRoute = trpc.procedure.input(z.string()).query(({ input /*, ctx */ }) => {
-  // TODO: check ctx for auth/permissions before returning FullText
-  const task = getTaskById(input)
-  if (!task) {
-    return null
-  }
-  return { id: task.id, title: task.title, description: task.description, FullText: task.FullText, status: task.status }
-})
+export const createGetRoute = (taskService: TaskService) =>
+  trpc.procedure.input(z.string()).query(async ({ input /*, ctx */ }) => {
+    // TODO: check ctx for auth/permissions before returning FullText
+    const task = await taskService.getTaskById(input)
+    if (!task) {
+      return null
+    }
+    return {
+      id: task.id,
+      title: task.title,
+      description: task.description,
+      FullText: task.FullText,
+      status: task.status,
+    }
+  })

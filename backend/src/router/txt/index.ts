@@ -12,18 +12,19 @@
  */
 
 import { trpc } from '../../lib/trpc'
-import { getAllTasks } from '../../services/taskService'
+import type { TaskService } from '../../services/taskService'
 
-export const txtTrpcRoute = trpc.procedure.query(() => {
-  const tasks = getAllTasks()
-  // Return a shallow-selected view to the client
-  return {
-    tasks: tasks.map((task) => ({
-      id: task.id,
-      title: task.title,
-      description: task.description,
-      status: task.status,
-      FullText: task.FullText,
-    })),
-  }
-})
+export const createTxtRoute = (taskService: TaskService) =>
+  trpc.procedure.query(async () => {
+    const tasks = await taskService.getAllTasks()
+    // Return a shallow-selected view to the client
+    return {
+      tasks: tasks.map((task) => ({
+        id: task.id,
+        title: task.title,
+        description: task.description,
+        status: task.status,
+        FullText: task.FullText,
+      })),
+    }
+  })

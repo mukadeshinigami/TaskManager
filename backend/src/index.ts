@@ -5,15 +5,23 @@
  * - CORS middleware for cross-origin requests
  * - tRPC middleware for type-safe RPC endpoints
  * - Health check endpoint (/ping)
+ * - Dependency injection setup (repository → service → router)
  *
  * Server runs on http://localhost:3000/
  */
 
 import express from 'express'
-import { trpcRouter } from './router/'
 import cors from 'cors'
 
 import { applyTrpcToExpressApp } from './lib/trpc'
+import { createTrpcRouter } from './router/index'
+import { createTaskService } from './services/taskService'
+import { MemoryTaskRepository } from './repositories/MemoryTaskRepository'
+
+// Initialize repository, service, and router with dependency injection
+const taskRepository = new MemoryTaskRepository()
+const taskService = createTaskService(taskRepository)
+const trpcRouter = createTrpcRouter(taskService)
 
 const expressApp = express()
 

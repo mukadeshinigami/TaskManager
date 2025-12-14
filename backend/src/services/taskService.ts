@@ -1,24 +1,58 @@
 /**
  * Task Service
  *
- * Thin service layer that exposes task-related business functions.
- * This wraps the temporary data source and provides a single place
- * to replace with a real database later.
+ * Business logic layer for task operations.
+ * Accepts repository via dependency injection.
+ * All methods are async to support both memory and database implementations.
  */
 
-import { tasks } from '../lib/create_temporary_task'
+import type { ITaskRepository } from '../repositories/ITaskRepository'
 import type { Task } from '../types/Task/index'
 
-export const getAllTasks = (): Task[] => {
-  return tasks
-}
+export const createTaskService = (repository: ITaskRepository) => ({
+  /**
+   * Get all tasks
+   */
+  getAllTasks: async (): Promise<Task[]> => {
+    return repository.findAll()
+  },
 
-export const getTaskById = (id: string): Task | null => {
-  const found = tasks.find((t) => t.id === id)
-  return found ?? null
-}
+  /**
+   * Get task by ID
+   */
+  getTaskById: async (id: string): Promise<Task | null> => {
+    return repository.findById(id)
+  },
 
-export default {
-  getAllTasks,
-  getTaskById,
-}
+  /**
+   * Create new task
+   */
+  createTask: async (data: Omit<Task, 'id'>): Promise<Task> => {
+    if (!repository.create) {
+      throw new Error('Repository does not support create operation')
+    }
+    return repository.create(data)
+  },
+
+  /**
+   * Update task
+   */
+  updateTask: async (id: string, data: Partial<Task>): Promise<Task | null> => {
+    if (!repository.update) {
+      throw new Error('Repository does not support update operation')
+    }
+    return repository.update(id, data)
+  },
+
+  /**
+   * Delete task
+   */
+  deleteTask: async (id: string): Promise<boolean> => {
+    if (!repository.delete) {
+      throw new Error('Repository does not support delete operation')
+    }
+    return repository.delete(id)
+  },
+})
+
+export type TaskService = ReturnType<typeof createTaskService>
