@@ -1,4 +1,5 @@
 import { trpc } from '../../lib/trpcClient'
+
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TodoPageRoutes } from '../../lib/routes'
@@ -24,7 +25,6 @@ export function TaskManager() {
   }
 
   return (
-    
     <div className="App">
       <h1>Welcome to Task Manager</h1>
 
@@ -59,12 +59,7 @@ export function TaskManager() {
                         }
                       }}
                     >
-                      <Segment
-                      size={2}
-                        title={task.title}
-                        description={task.description}
-
-                      />
+                      <Segment size={2} title={task.title} description={task.description} />
                     </div>
                   )
                 })}
@@ -127,11 +122,7 @@ export function TaskManager() {
           <div className={css.modalContent}>
             <div className={css.modalHeader}>
               <h3>{taskDetail.title}</h3>
-              <button
-                onClick={() => setSelectedTaskId(null)}
-                aria-label="Close"
-                className={css.closeButton}
-              >
+              <button onClick={() => setSelectedTaskId(null)} aria-label="Close" className={css.closeButton}>
                 ✕
               </button>
             </div>
@@ -140,8 +131,11 @@ export function TaskManager() {
                 <strong>Description:</strong> {taskDetail.description}
               </p>
 
-
-              <div className={css.fullText}><p><strong>Full text:</strong> {taskDetail.FullText}</p></div>
+              <div className={css.fullText}>
+                <p>
+                  <strong>Full text:</strong> {taskDetail.FullText}
+                </p>
+              </div>
             </div>
           </div>
         </div>
