@@ -5,9 +5,11 @@ import { Input } from '../../components/Imput'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useState } from 'react'
+import { Alert } from '../../components/Alert'
 
 export const EditingTaskPage = () => {
 const [successMessageVisible, setSuccessMessageVisible] = useState(false)
+const [submittingError, setSubmittingError] = useState<string | null>(null)
 
   const createTask = trpc.update.useMutation({
     onSuccess: () => {
@@ -44,14 +46,21 @@ const [successMessageVisible, setSuccessMessageVisible] = useState(false)
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
+      try {
       await createTask.mutateAsync({ id: id || '', data: values })
       // Optionally, redirect or show success message here
-      console.info('Task created:', values)
+      console.info('Task update:', values)
       // Reset form after submission
       formik.resetForm()
       setSuccessMessageVisible(true)
       setTimeout(() => setSuccessMessageVisible(false), 2000)
-    },
+    } catch (error: any) {
+      console.error('Error submitting form:', error)
+      setSubmittingError(error.message || 'An error occurred while submitting the form.')
+      setTimeout(() => setSubmittingError(null), 2000
+      )
+    }
+    }
   })
 
   const { id } = useParams() as { id?: string }
@@ -81,7 +90,8 @@ const [successMessageVisible, setSuccessMessageVisible] = useState(false)
       >
         <h2 style={{ textAlign: 'center', marginBottom: '8px' }}>{task.title} Details</h2>
 
-        {successMessageVisible && <p style={{ color: 'green', textAlign: 'center', backgroundColor: '#d4edda', borderRadius: '4px', padding: '4px', margin: '4px 0' }}>Task updated successfully!</p>}
+        {successMessageVisible && <Alert color="green">Task updated successfully!</Alert>}
+        {!!submittingError && <Alert color="red">{submittingError}</Alert>}
 
         <div style={{ backgroundColor: '#1b263b', padding: '8px', borderRadius: '4px', marginBottom: '8px' }}>
           <Input input="input" field="title" label={task.title} placeholder="Edit title" formik={formik} />

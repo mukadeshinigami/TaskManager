@@ -1,0 +1,21 @@
+@import '../../../style/mixins';
+@import '../../../style/vars';
+
+.alert {
+  color: white;
+  text-align: center;
+  background-color: green;
+  border-radius: 8px;
+  padding: 8px;
+  margin: 8px 0;
+
+  &.green {
+    color: white;
+    background-color: rgba(0, 128, 0, 0.6);
+  }
+
+  &.red {
+    color: white;
+    background-color: rgba(255, 0, 0, 0.6);
+  }
+}

@@ -15,6 +15,8 @@ type InputProps = {
 export const Input = ({ input = 'input', field, label, bonus, bottom, formik, placeholder }: InputProps) => {
   const error =
     formik.touched[field] && typeof formik.errors[field] === 'string' ? (formik.errors[field] as string) : undefined
+  // Button should show error state even if field hasn't been touched (so user sees it instead of 'Saving...')
+  const buttonError = typeof formik.errors[field] === 'string' ? (formik.errors[field] as string) : undefined
   const handleSave = () => {
     formik.setFieldTouched(field, true, true)
     formik.validateField(field)
@@ -101,6 +103,7 @@ export const Input = ({ input = 'input', field, label, bonus, bottom, formik, pl
           onChange={(e) => formik.setFieldValue(field, e.target.value)}
           onBlur={formik.handleBlur}
           name={field}
+          className={styles.textarea}
           style={error ? { borderColor: 'red' } : {}}
           disabled={formik.isSubmitting}
         />
@@ -110,12 +113,14 @@ export const Input = ({ input = 'input', field, label, bonus, bottom, formik, pl
         {bottom === 'on' ? (
           <button
             type="submit"
-            disabled={formik.isSubmitting || !String(formik.values[field] ?? '').trim().length}
-            className={`${styles.button} ${showSuccess ? styles.success : ''}`}
+            disabled={
+              Boolean(buttonError) || formik.isSubmitting || !String(formik.values[field] ?? '').trim().length
+            }
+            className={`${styles.button} ${showSuccess ? styles.success : ''} ${buttonError ? styles.error : ''}`}
             style={{ marginLeft: 8 }}
             onClick={handleSave}
           >
-            {showSaving || formik.isSubmitting ? 'Saving...' : showSuccess ? 'Saved' : 'Save'}
+            {buttonError ? buttonError : showSaving || formik.isSubmitting ? 'Saving...' : showSuccess ? 'Saved' : 'Save'}
           </button>
         ) : null}
       </div>
